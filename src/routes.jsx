@@ -7,6 +7,7 @@ import About from "./pages/About";
 import CadastroProduto from "./pages/CadastroProduto";
 import PrivateRoute from "./components/PrivateRoute";
 import ListaProdutos from "./components/ListaProdutos/ListaProdutos";
+import Footer from "./components/Footer/Footer";
 
 function AppRoutes() {
   return (
@@ -27,6 +28,7 @@ function AppRoutes() {
         <Route path="/cadastro" element={<CadastroProduto />} />
         <Route path="/todosprodutos" element={<ListaProdutos />} />
       </Routes>
+      
     </>
   );
 }
