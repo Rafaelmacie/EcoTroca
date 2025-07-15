@@ -1,0 +1,13 @@
+.titulo{
+    text-align: center;
+}
+
+.EcoTroca{
+    color: rgb(24, 208, 24);
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.771);
+}
+
+.paragrafo{
+    font-size: large;
+    text-align: center;
+}
