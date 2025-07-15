@@ -12,4 +12,4 @@ function TodosProdutos() {
   )
 }
 
-export default TodosProdutos;
+export default TodosProdutos

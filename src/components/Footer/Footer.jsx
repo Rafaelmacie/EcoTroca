@@ -6,7 +6,7 @@ function Footer() {
 
     return (
         <section className="">
-            <footer class=" bg-dark text-white text-center py-3">
+            <footer class="bg-dark text-white text-center py-3">
                 <div className="d-flex justify-content-center column-gap-5">
                     <ul class="nav flex-column row-gap-2">
                         <li class="nav-item d-flex">
