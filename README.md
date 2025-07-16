@@ -14,7 +14,6 @@ Este projeto foi desenvolvido com dedicação e paixão pela **Equipe 06**:
 
 * **Lucas Santos**
 * **Roniely Pinheiro**
-* **David Marques**
 * **Rafael Maciel**
 * **Keven Gonçalves**
 

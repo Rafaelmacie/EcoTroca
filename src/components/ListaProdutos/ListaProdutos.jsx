@@ -6,10 +6,13 @@ import Footer from '../Footer/Footer';
 import { PropostaContext } from '../../context/PropostaContext';
 import { AuthContext } from '../../context/authHandler';
 
+import { useNavigate } from 'react-router';
+
 function ListaProdutos() {
   const [produtoSelecionado, setProdutoSelecionado] = useState(null);
   const [descricaoProposta, setDescricaoProposta] = useState("");
   const [busca, setBusca] = useState("");
+  const navigate = useNavigate();
 
   const { adicionarProposta } = useContext(PropostaContext);
   const { user } = useContext(AuthContext);
@@ -22,6 +25,10 @@ function ListaProdutos() {
     setProdutoSelecionado(null);
     setDescricaoProposta("");
   };
+
+  const handleRouter = (id) => {
+  navigate(`/detalhes/${id}`);
+};
 
   const handleEnviarProposta = () => {
     if (!descricaoProposta || !produtoSelecionado || !user) return;
@@ -66,6 +73,7 @@ function ListaProdutos() {
                     src={produto.imgURL}
                     className={`card-img-top ${styles['card-img-top']}`}
                     alt={produto.nome}
+                    onClick={() => handleRouter(produto.id)}
                   />
                   <div className={`card-body ${styles['card-body']}`}>
                     <h1 className="card-title">{produto.nome_dono}</h1>
