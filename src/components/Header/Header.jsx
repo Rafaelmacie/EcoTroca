@@ -1,60 +1,93 @@
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/logoeco.png";
-import { AuthContext } from "../../context/authHandler";
-import { useContext } from "react";
+import Logo from '../../assets/logoeco.png'
+import { AuthContext} from '../../context/authHandler'
+import { useContext, useState } from "react"; // Importe useState
+import useWindowSize from '../../hooks/useWindowSize';
 
 function Header() {
   const { handleLogout } = useContext(AuthContext);
   const { isLoggedIn } = useContext(AuthContext);
+  const { width } = useWindowSize();
+  const isMobile = width <= 768 ? true : false;
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
-        <Link className={`navbar-brand ${styles.decoration}`} to="/">
-          <img src={Logo} alt="Logo EcoTroca" width={80} />
-          <span>EcoTroca</span>
-        </Link>
-
-        {/* Botão sanduíche */}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarEco"
-          aria-controls="navbarEco"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        {/* Menu colapsável */}
-        <div className="collapse navbar-collapse" id="navbarEco">
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link to="/" className={`btn btn-outline-success m-1 ${styles.categories}`}>Home</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/todosprodutos" className={`btn btn-outline-success m-1 ${styles.categories}`}>Todos Produtos</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/perfil" className={`btn btn-outline-success m-1 ${styles.categories}`}>Perfil</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/about" className={`btn btn-outline-success m-1 ${styles.categories}`}>Sobre</Link>
-            </li>
-            <li className="nav-item">
+    <>
+      {!isMobile ? (
+        <nav className="navbar bg-body-tertiary">
+          <div className="container-fluid">
+            <Link className={styles.decoration} to="/">
+              <img src={Logo} alt="" width={80}/>
+              <span className="navbar-brand">EcoTroca</span>
+            </Link>
+            <form className="d-flex" role="search">
+              <Link to="/">
+                <span className={`btn btn-outline-success ${styles.categories}`}>Home</span>
+              </Link>
+              <Link to="/todosprodutos">
+                <span className={`btn btn-outline-success ${styles.categories}`}>Todos Produtos</span>
+              </Link>
+              <Link to="/perfil">
+                <span className={`btn btn-outline-success ${styles.categories}`}>Perfil</span>
+              </Link>
+              <Link to="/about">
+                <span className={`btn btn-outline-success ${styles.categories}`}>Sobre</span>
+              </Link>
               {isLoggedIn ? (
-                <span onClick={handleLogout} className={`btn btn-outline-success m-1 ${styles.loginButton}`}>Sair</span>
+                <span onClick={handleLogout} className={`btn btn-outline-success ${styles.loginButton}`}>Sair</span>
               ) : (
-                <Link to="/login" className={`btn btn-outline-success m-1 ${styles.loginButton}`}>Login</Link>
+                <Link to="/login">
+                  <span className={`btn btn-outline-success ${styles.loginButton}`}>Login</span>
+                </Link>
               )}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+            </form>
+          </div>
+        </nav>
+      ) : (
+        <nav className={styles.mobileNavbar}>
+          <div className={styles.mobileHeader}>
+            <Link className={styles.decoration} to="/">
+              <img src={Logo} alt="" width={80}/>
+              <span className={styles.mobileBrand}>EcoTroca</span>
+            </Link>
+            <div className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`} onClick={toggleMenu}>
+              <div className={styles.bar}></div>
+              <div className={styles.bar}></div>
+              <div className={styles.bar}></div>
+            </div>
+          </div>
+          {menuOpen && (
+            <div className={styles.mobileMenu}>
+              <Link to="/" onClick={toggleMenu} className={styles.noDecoration}>
+                <span className={styles.mobileMenuItem}>Home</span>
+              </Link>
+              <Link to="/todosprodutos" onClick={toggleMenu} className={styles.noDecoration}>
+                <span className={styles.mobileMenuItem}>Todos Produtos</span>
+              </Link>
+              <Link to="/perfil" onClick={toggleMenu} className={styles.noDecoration}>
+                <span className={styles.mobileMenuItem}>Perfil</span>
+              </Link>
+              <Link to="/about" onClick={toggleMenu} className={styles.noDecoration}>
+                <span className={styles.mobileMenuItem}>Sobre</span>
+              </Link>
+              {isLoggedIn ? (
+                <span onClick={() => { handleLogout(); toggleMenu(); }} ><p className={styles.logout}>Sair</p></span>
+              ) : (
+                <Link to="/login" onClick={toggleMenu}>
+                  <span className={styles.mobileMenuItem}>Login</span>
+                </Link>
+              )}
+            </div>
+          )}
+        </nav>
+      )}
+    </>
   );
 }
 
