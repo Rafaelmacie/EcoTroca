@@ -79,7 +79,7 @@ function Header() {
               {isLoggedIn ? (
                 <span onClick={() => { handleLogout(); toggleMenu(); }} ><p className={styles.logout}>Sair</p></span>
               ) : (
-                <Link to="/login" onClick={toggleMenu} className={styles.mobileMenuItem, styles.noDecoration}>
+                <Link to="/login" onClick={toggleMenu}>
                   <span className={styles.mobileMenuItem}>Login</span>
                 </Link>
               )}
