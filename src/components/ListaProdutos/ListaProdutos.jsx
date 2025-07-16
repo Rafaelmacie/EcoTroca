@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import produtos from '../../database/produtos';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './ListaProdutos.module.css';
 import Footer from '../Footer/Footer';
+import { PropostaContext } from '../../context/PropostaContext';
+import { AuthContext } from '../../context/authHandler';
 
 function ListaProdutos() {
   const [produtoSelecionado, setProdutoSelecionado] = useState(null);
   const [descricaoProposta, setDescricaoProposta] = useState("");
   const [busca, setBusca] = useState("");
+
+  const { adicionarProposta } = useContext(PropostaContext);
+  const { user } = useContext(AuthContext);
 
   const handleAbrirModal = (produto) => {
     setProdutoSelecionado(produto);
@@ -19,18 +24,27 @@ function ListaProdutos() {
   };
 
   const handleEnviarProposta = () => {
-    alert(`Proposta para trocar por: ${produtoSelecionado.nome}\nDescrição: ${descricaoProposta}`);
+    if (!descricaoProposta || !produtoSelecionado || !user) return;
+
+    adicionarProposta({
+      id: crypto.randomUUID(),
+      idProdutoDestino: produtoSelecionado.id,
+      idProponente: user.id,
+      nomeProponente: user.nome,
+      descricao: descricaoProposta
+    });
+
+    alert('Proposta enviada com sucesso!');
     handleFecharModal();
   };
 
-  // 🔍 Filtro de busca
   const produtosFiltrados = produtos.filter(produto =>
     produto.nome.toLowerCase().includes(busca.toLowerCase())
   );
 
   return (
     <div>
-      <div className="container ">
+      <div className="container">
         <div className={styles.container_h2}>
           <h2>Lista de Produtos</h2>
           <input
@@ -73,7 +87,6 @@ function ListaProdutos() {
           )}
         </div>
 
-        {/* Modal */}
         {produtoSelecionado && (
           <>
             <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1">
@@ -115,12 +128,9 @@ function ListaProdutos() {
             ></div>
           </>
         )}
-
       </div>
       <Footer />
     </div>
-
-
   );
 }
 
