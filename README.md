@@ -15,7 +15,7 @@ Este projeto foi desenvolvido com dedicação e paixão pela **Equipe 06**:
 * **Lucas Santos** - Seção sobre, carrossel Home + responsividade, responsividade menu header (menu hamburguer) e lógica de exibição do botão sair/login, rotas, melhoria de código.
 * **Roniely Pinheiro** - Protótipo figma, cards de produtos, header, listagem de produtos, cadastro de produtos, login, melhoria de componentização, melhoria de código.
 * **Rafael Maciel** - Protótipo figma, componente seusProdutos, dinamicidade dos dados exibidos no perfil, seção de boas vindas na home, melhoria de código.
-* **Keven Gonçalves** - Criação/estilização do footer e responsividade.
+* **Keven Gonçalves** - Criação/estilização do footer e responsividade, Criação de visual do Header alternativa 2 e components com filtro css aprimorado, ideia descartada.
 
 ---
 
