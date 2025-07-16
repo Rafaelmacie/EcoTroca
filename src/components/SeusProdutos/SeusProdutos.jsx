@@ -58,7 +58,7 @@ function SeusProdutos({ produto }) {
                   <h3 className="card-title">{produto.nome}</h3>
                   <p className="card-text">{produto.descricao}</p>
                   <p className="card-text">{produto.loca}</p>
-                  <button className="btn btn-primary">Propor Troca</button>
+                  <button className="btn btn-primary">Editar Produto</button>
                 </div>
               </div>
             </div>

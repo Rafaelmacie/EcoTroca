@@ -1,4 +1,4 @@
-import Carousel from 'react-bootstrap/Carousel';
+import { Carousel } from "react-bootstrap";
 import produtos from "../../database/produtos";
 import styles from "./Carousel.module.css";
 import ProdutoCard from '../ProdutoCard/ProdutoCard';
